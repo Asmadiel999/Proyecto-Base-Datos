@@ -1,6 +1,7 @@
 package com.apirest.proyecto_bases.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apirest.proyecto_bases.model.HistorialEstadosModel;
 import com.apirest.proyecto_bases.model.OrdenServicioModel;
+import com.apirest.proyecto_bases.model.ValoracionServicioModel;
 import com.apirest.proyecto_bases.service.IOrdenServicioService;
 
 @RestController
@@ -69,5 +71,30 @@ public class OrdenServicioController {
     @PostMapping("/{ordenId}/historial")
     public ResponseEntity<OrdenServicioModel> agregarHistorialEstado(@PathVariable ObjectId ordenId, @RequestBody HistorialEstadosModel historial) {
         return new ResponseEntity<>(ordenServicioService.agregarHistorialEstado(ordenId, historial), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<OrdenServicioModel> cambiarEstado(
+            @PathVariable("id") ObjectId id,
+            @RequestBody Map<String, String> body) {
+        String nuevoEstado = body.get("estado");
+        ObjectId usuarioId = new ObjectId(body.get("usuarioId"));
+        String observacion = body.get("observacion");
+
+        return new ResponseEntity<>(
+            ordenServicioService.actualizarEstado(id, nuevoEstado, usuarioId, observacion),
+            HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{id}/valoracion/{clienteId}")
+    public ResponseEntity<OrdenServicioModel> valorarOrden(
+            @PathVariable("id") ObjectId id,
+            @PathVariable("clienteId") ObjectId clienteId,
+            @RequestBody ValoracionServicioModel valoracion) {
+        return new ResponseEntity<>(
+            ordenServicioService.registrarValoracion(id, clienteId, valoracion),
+            HttpStatus.OK
+        );
     }
 }

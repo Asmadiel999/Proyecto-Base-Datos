@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 
 import com.apirest.proyecto_bases.model.HistorialEstadosModel;
 import com.apirest.proyecto_bases.model.OrdenServicioModel;
+import com.apirest.proyecto_bases.model.ValoracionServicioModel;
 
 public interface IOrdenServicioService {
     OrdenServicioModel crearOrdenServicio(OrdenServicioModel orden);

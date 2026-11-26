@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.apirest.proyecto_bases.model.TrabajosOrdenModel;
+import java.util.List;
 
 public interface ITrabajosOrdenRepository extends MongoRepository<TrabajosOrdenModel, ObjectId>{
     List<TrabajosOrdenModel> findByOrdenId(ObjectId id); 
