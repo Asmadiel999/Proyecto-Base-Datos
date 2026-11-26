@@ -7,7 +7,15 @@ import org.bson.types.ObjectId;
 import com.apirest.proyecto_bases.model.RepuestosModel;
 
 public interface IRepuestosService {
-    public RepuestosModel crearRepuesto(RepuestosModel repuesto);
-    public List<RepuestosModel> listarRepuestos(); 
-    public RepuestosModel buscarRepuestosPorId(ObjectId repuestoId); 
+    RepuestosModel crearRepuesto(RepuestosModel repuesto);
+
+    List<RepuestosModel> listarRepuestos();
+
+    RepuestosModel buscarRepuestoPorId(ObjectId repuestoId);
+
+    RepuestosModel actualizarRepuesto(ObjectId repuestoId, RepuestosModel repuesto);
+
+    void eliminarRepuesto(ObjectId repuestoId);
+
+    List<RepuestosModel> listarRepuestosPorNombre(String nombre);
 }
