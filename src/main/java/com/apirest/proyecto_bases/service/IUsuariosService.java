@@ -7,7 +7,17 @@ import org.bson.types.ObjectId;
 import com.apirest.proyecto_bases.model.UsuarioModel;
 
 public interface IUsuariosService {
-    public UsuarioModel crearUsuario(UsuarioModel usuario); 
-    public List<UsuarioModel> listarUsuarios();
-    public UsuarioModel buscarUsuarioPorId(ObjectId idUsuario); 
+    UsuarioModel crearUsuario(UsuarioModel usuario);
+
+    List<UsuarioModel> listarUsuarios();
+
+    UsuarioModel buscarUsuarioPorId(ObjectId usuarioId);
+
+    UsuarioModel actualizarUsuario(ObjectId usuarioId, UsuarioModel usuario);
+
+    void eliminarUsuario(ObjectId usuarioId);
+
+    List<UsuarioModel> listarUsuariosPorRol(String rol);
+
+    void validarRol(ObjectId usuarioId, String rolEsperado);
 }

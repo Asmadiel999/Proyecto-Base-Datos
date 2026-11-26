@@ -7,7 +7,15 @@ import org.bson.types.ObjectId;
 import com.apirest.proyecto_bases.model.ServicioModel;
 
 public interface IServiciosService {
-    public ServicioModel crearServicio(ServicioModel servicio);
-    public List<ServicioModel> listarUsuario();
-    public ServicioModel buscarServicioPorId(ObjectId servicioId); 
+    ServicioModel crearServicio(ServicioModel servicio);
+
+    List<ServicioModel> listarServicios();
+
+    ServicioModel buscarServicioPorId(ObjectId servicioId);
+
+    ServicioModel actualizarServicio(ObjectId servicioId, ServicioModel servicio);
+
+    void eliminarServicio(ObjectId servicioId);
+
+    List<ServicioModel> listarServiciosPorCategoria(String categoria);
 }

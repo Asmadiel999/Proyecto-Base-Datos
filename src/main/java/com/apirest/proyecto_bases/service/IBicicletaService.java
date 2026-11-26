@@ -7,7 +7,15 @@ import org.bson.types.ObjectId;
 import com.apirest.proyecto_bases.model.BicicletaModel;
 
 public interface IBicicletaService {
-    public BicicletaModel crearBicicleta(BicicletaModel bicicleta); 
-    public List<BicicletaModel> listarBicicletas();
-    public BicicletaModel buscarBicicletaPorId(ObjectId idBicicleta);
+    BicicletaModel crearBicicleta(BicicletaModel bicicleta);
+
+    List<BicicletaModel> listarBicicletas();
+
+    BicicletaModel buscarBicicletaPorId(ObjectId bicicletaId);
+
+    BicicletaModel actualizarBicicleta(ObjectId bicicletaId, BicicletaModel bicicleta);
+
+    void eliminarBicicleta(ObjectId bicicletaId);
+
+    List<BicicletaModel> listarBicicletasPorClienteId(ObjectId clienteId);
 }

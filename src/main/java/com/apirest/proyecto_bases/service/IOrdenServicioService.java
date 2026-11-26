@@ -4,10 +4,25 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.apirest.proyecto_bases.model.HistorialEstadosModel;
 import com.apirest.proyecto_bases.model.OrdenServicioModel;
 
 public interface IOrdenServicioService {
-    public OrdenServicioModel crearOrdenServicio(OrdenServicioModel orden);
-    public List<OrdenServicioModel> listarOrdenesServicios();
-    public OrdenServicioModel buscarOrdenServicioPorId(ObjectId ordenServicioId); 
+    OrdenServicioModel crearOrdenServicio(OrdenServicioModel orden);
+
+    List<OrdenServicioModel> listarOrdenesServicio();
+
+    OrdenServicioModel buscarOrdenServicioPorId(ObjectId ordenId);
+
+    OrdenServicioModel actualizarOrdenServicio(ObjectId ordenId, OrdenServicioModel orden);
+
+    void eliminarOrdenServicio(ObjectId ordenId);
+
+    List<OrdenServicioModel> listarOrdenesServicioPorClienteId(ObjectId clienteId);
+
+    List<OrdenServicioModel> listarOrdenesServicioPorTecnicosAsignados(ObjectId tecnicoId);
+
+    List<OrdenServicioModel> listarOrdenesServicioPorEstado(String estado);
+
+    OrdenServicioModel agregarHistorialEstado(ObjectId ordenId, HistorialEstadosModel historial);
 }

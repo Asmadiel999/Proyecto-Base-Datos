@@ -7,7 +7,17 @@ import org.bson.types.ObjectId;
 import com.apirest.proyecto_bases.model.SolicitudesGarantiaModel;
 
 public interface ISolicitudesGarantiaService {
-    public SolicitudesGarantiaModel crearSolicitudGarantia(SolicitudesGarantiaModel solicitud);
-    public List<SolicitudesGarantiaModel> listarSolicitudes();
-    public SolicitudesGarantiaModel buscarGarantiaPorId(ObjectId garantiaId); 
+    SolicitudesGarantiaModel crearSolicitudGarantia(SolicitudesGarantiaModel solicitud);
+
+    List<SolicitudesGarantiaModel> listarSolicitudesGarantia();
+
+    SolicitudesGarantiaModel buscarSolicitudGarantiaPorId(ObjectId solicitudId);
+
+    SolicitudesGarantiaModel actualizarSolicitudGarantia(ObjectId solicitudId, SolicitudesGarantiaModel solicitud);
+
+    void eliminarSolicitudGarantia(ObjectId solicitudId);
+
+    List<SolicitudesGarantiaModel> listarSolicitudesGarantiaPorTrabajoId(ObjectId trabajoId);
+
+    List<SolicitudesGarantiaModel> listarSolicitudesGarantiaPorEstado(String estado);
 }
