@@ -12,7 +12,7 @@ import com.apirest.proyecto_bases.model.BicicletaModel;
 import com.apirest.proyecto_bases.model.CitaModel;
 import com.apirest.proyecto_bases.model.UsuarioModel;
 import com.apirest.proyecto_bases.repository.ICitasRepository;
-
+import org.springframework.http.HttpStatus;
 @Service 
 public class CitasServiceImp implements ICitasService{
     @Autowired ICitasRepository citasRepository;
@@ -26,8 +26,12 @@ public class CitasServiceImp implements ICitasService{
         ObjectId bicicletaId = cita.getBicicletaId();
         UsuarioModel usuario = usuariosService.buscarUsuarioPorId(usuarioId);
         BicicletaModel bicicleta = bicicletaService.buscarBicicletaPorId(bicicletaId);
-
+        
         if (usuario != null && bicicleta != null) {
+            List<String> estadosActivos = List.of("solicitada", "confirmada");
+            if (citasRepository.existsByBicicletaIdAndFechaHoraAndEstadoIn(bicicletaId, cita.getFechaHora(), estadosActivos)){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una cita activa en este horario");
+            }
             return citasRepository.save(cita); 
         }else{
              throw new ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "El usuario y la bicicleta no existen por lo tanto no es posible crear la cita");

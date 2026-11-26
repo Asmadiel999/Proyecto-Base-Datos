@@ -13,6 +13,7 @@ import com.apirest.proyecto_bases.model.ServicioModel;
 import com.apirest.proyecto_bases.model.TrabajosOrdenModel;
 import com.apirest.proyecto_bases.model.UsuarioModel;
 import com.apirest.proyecto_bases.repository.ITrabajosOrdenRepository;
+import org.springframework.http.HttpStatus;
 
 @Service 
 
@@ -30,12 +31,20 @@ public class TrabajosOrdenServiceImp implements ITrabajosOrdenService{
 
         UsuarioModel usuario = usuariosService.buscarUsuarioPorId(usuarioId);
         OrdenServicioModel orden = ordenServicioService.buscarOrdenServicioPorId(ordenServicioId);
-        ServicioModel servicio = serviciosService.buscarServicioPorId(servicioId);
+        ServicioModel servicio = (servicioId != null) ? serviciosService.buscarServicioPorId(servicioId): null;
 
-        if (usuario != null && orden != null && servicio != null) {
+        if (usuario != null && orden != null && (servicioId == null || servicio !=null)) {
+
+            if (trabajos.getEjecucion() != null) {
+                if (trabajos.getAutorizacion() == null || 
+                    !"autorizado".equalsIgnoreCase(trabajos.getAutorizacion().getDecision())) {
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, 
+                        "No se puede ejecutar un trabajo que no haya sido autorizado por el cliente");
+                }}
             return trabajosOrdenRepository.save(trabajos);
-        }else{
-            throw new ResponseStatusException(org.springframework.http.HttpStatus.NOT_FOUND, "Debido a que ni el usuario, ni la orden, ni el servicio existen no es posible crearlo");
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, 
+                "Debido a que el usuario, la orden o el servicio no existen, no es posible crear el trabajo");
         }
     }
 
